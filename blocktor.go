@@ -24,6 +24,7 @@ func main() {
 	allAddresses := UpdateAddresses()
 
 	for _, addr := range allAddresses {
-		fmt.Println(addr)
+		fmt.Println("Blocking ", addr, "...")
+		BlockRequestFrom(addr)
 	}
 }
