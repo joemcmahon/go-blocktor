@@ -1,16 +1,28 @@
 package main
 
-import "os/exec"
-import "fmt"
+import (
+	"os"
+	"os/exec"
+	"syscall"
+)
 
 // BlockRequestFrom represent the command iptables to block address.
 func BlockRequestFrom(address string) {
 	ports := []string{"80", "443"}
 
-	for _, port := range ports {
-		line := "iptables -A INPUT -s", address, " -p tcp --dport ", port, " -j DROP"
-		fmt.Println(line)
-
-		exec.Command(line).Output()
+	binary, lookErr := exec.LookPath("iptables")
+	if lookErr != nil {
+		panic(lookErr)
 	}
+
+	for _, port := range ports {
+		args := []string{"-A INPUT -s", address, "-p tcp", "--destination-port 80", "-j DROP"}
+		env := os.Environ()
+
+		execErr := syscall.Exec(binary, args, env)
+		if execErr != nil {
+			panic(execErr)
+		}
+	}
+
 }

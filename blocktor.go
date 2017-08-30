@@ -24,7 +24,9 @@ func main() {
 	allAddresses := UpdateAddresses()
 
 	for _, addr := range allAddresses {
-		fmt.Println("Blocking ", addr, "...")
-		BlockRequestFrom(addr)
+		if len(addr) <= 15 {
+			fmt.Println("Blocking ", addr, "...")
+			BlockRequestFrom(addr)
+		}
 	}
 }
