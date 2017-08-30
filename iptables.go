@@ -13,7 +13,7 @@ func BlockRequestFrom(address string) {
 	os.Getenv("PATH")
 
 	for _, port := range ports {
-		cmd := exec.Command("iptables", "-A", "INPUT", "-s", address, "-p", "tcp", "--dport", port, "-j", "DROP")
-		cmd.Run()
+		c := exec.Command("iptables", "-A", "INPUT", "-s", address, "-p", "tcp", "--dport", port, "-j", "DROP")
+		c.Run()
 	}
 }
