@@ -1,13 +1,28 @@
 # Blocktor
-Simple application to block requests from TOR network, based from https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=xxx.xxx.xxx.xxx.
+Simple application to block requests from TOR network, based from https://check.torproject.org/.
 
-## Install and Use
+## Compile
 
 ```bash
 
 $ git clone ...
 $ cd blocktor
 $ go build *.go
-$ sudo ./blocktor
 
+```
+
+## How to use
+
+List of all Tor exit nodes from the past 16 hours that can contact xxx.xxx.xxx.xxx on port 80 and 443.
+
+```
+$ sudo ./blocktor -address xxx.xxx.xxx.xxx
+```
+
+
+List of all Tor exit nodes from the past 16 hours that can contact xxx.xxx.xxx.xxx on port 80 and 443 and load script with initials rules.
+
+```
+$ sudo ./blocktor -address xxx.xxx.xxx.xxx -initial-rules ./init.sh # default is
+./start.sh
 ```
