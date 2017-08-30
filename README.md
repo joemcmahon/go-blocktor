@@ -5,7 +5,7 @@ Simple application to block requests from TOR network, based from https://check.
 
 ```bash
 
-$ git clone ...
+$ git clone https://github.com/paulopinda/blocktor.git
 $ cd blocktor
 $ go build *.go
 
@@ -22,7 +22,7 @@ $ sudo ./blocktor -address xxx.xxx.xxx.xxx
 
 List of all Tor exit nodes from the past 16 hours that can contact xxx.xxx.xxx.xxx on port 80 and 443 and load script with initials rules.
 
-```
-$ sudo ./blocktor -address xxx.xxx.xxx.xxx -initial-rules ./init.sh # default is
-./start.sh
+``` bash
+$ sudo ./blocktor -address xxx.xxx.xxx.xxx -initial-rules ./init.sh # default is ./start.sh
+
 ```
