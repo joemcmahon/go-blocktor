@@ -10,6 +10,12 @@ func InitialRules(scriptPath string) {
 	c.Run()
 }
 
+// ClearAllNAT clear all rules of nat iptables.
+func ClearAllNAT() {
+	c := exec.Command("iptables", "-t", "nat", "-F")
+	c.Run()
+}
+
 // ClearAllRules clear all rules of iptables.
 func ClearAllRules() {
 	c := exec.Command("iptables", "-F")
