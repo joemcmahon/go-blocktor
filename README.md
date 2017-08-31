@@ -1,5 +1,6 @@
 # Blocktor
-Simple application to block requests from TOR network, based from https://check.torproject.org/.
+Simple application to block requests from TOR network, based from https://check.torproject.org/ and
+iptables rules.
 
 ## Compile
 
