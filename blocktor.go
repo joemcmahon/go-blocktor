@@ -10,24 +10,26 @@ func main() {
 
 	// parameters to use.
 	addrDestiny := flag.String("address", "1.1.1.1", "IP Address")
-	initialRules := flag.String("initial-rules", "./start.sh", "Script with initial rules")
+	initialRules := flag.String("rules", "./start.sh", "Script initial rules")
+	clearRules := flag.String("clear", "false", "Clear rules")
 
 	flag.Parse()
 
 	allAddresses := UpdateAddresses(*addrDestiny)
 
-	// clear old rules.
-	ClearAllNAT()
-	ClearAllRules()
+	if *clearRules != "true" {
+		ClearAllNAT()
+		ClearAllRules()
 
-	// load new rules.
-	InitialRules(*initialRules)
+		InitialRules(*initialRules)
 
-	// block addresses from list.
-	fmt.Println("Blocking...")
-	for _, addr := range allAddresses {
-		if len(addr) < 16 && len(addr) > 7 {
-			BlockRequestFrom(addr)
+		fmt.Println("Blocking...")
+		for _, addr := range allAddresses {
+			if len(addr) < 16 && len(addr) > 7 {
+				BlockRequestFrom(addr)
+			}
 		}
+	} else {
+		ClearAllRules()
 	}
 }

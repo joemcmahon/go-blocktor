@@ -27,3 +27,9 @@ Load script with initials rules.
 $ sudo ./blocktor -address xxx.xxx.xxx.xxx -initial-rules ./init.sh # default is ./start.sh
 
 ```
+
+Clear current rules.
+
+```bash
+$ sudo ./blocktor -clear true``
+
