@@ -31,5 +31,6 @@ $ sudo ./blocktor -address xxx.xxx.xxx.xxx -initial-rules ./init.sh # default is
 Clear current rules.
 
 ```bash
-$ sudo ./blocktor -clear true``
+$ sudo ./blocktor -clear true
+```
 
