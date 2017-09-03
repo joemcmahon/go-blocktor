@@ -22,6 +22,12 @@ func ClearAllRules() {
 	c.Run()
 }
 
+//ClearAll clear all rules.
+func ClearAll() {
+	ClearAllNAT()
+	ClearAllRules()
+}
+
 // BlockRequestFrom block requests from address in a port 80 and 443.
 func BlockRequestFrom(address string) {
 	ports := []string{"80", "443"}
