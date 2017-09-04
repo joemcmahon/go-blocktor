@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	if runtime.GOOS == "linux" {
+	if runtime.GOOS != "linux" {
 		fmt.Println("Operating system not supported.")
 		return
 	}

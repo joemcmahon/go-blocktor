@@ -8,7 +8,12 @@ import (
 
 // UpdateAddresses get all addresses from the past 16 hours.
 func UpdateAddresses(address string) []string {
-	res, _ := http.Get("https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=" + address)
+	res, errGet := http.Get("https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=" + address)
+
+	if errGet != nil {
+		panic(errGet)
+	}
+
 	defer res.Body.Close()
 
 	body, _ := ioutil.ReadAll(res.Body)
