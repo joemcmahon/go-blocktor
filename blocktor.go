@@ -3,9 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
+	"runtime"
 )
 
 func main() {
+	if runtime.GOOS == "linux" {
+		fmt.Println("Operating system not supported.")
+		return
+	}
+
 	fmt.Println("Updating...")
 
 	// parameters to use.
