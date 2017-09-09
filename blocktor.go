@@ -12,21 +12,21 @@ func main() {
 		return
 	}
 
-	fmt.Println("Updating...")
-
-	// parameters to use.
-	flagAddress := flag.String("address", "1.1.1.1", "IP Address")
-	flagRules := flag.String("rules", "./start.sh", "Script initial rules")
-	flagClear := flag.String("clear", "false", "Clear rules")
+	flagA := flag.String("address", "1.1.1.1", "IP Address")
+	flagR := flag.String("rules", "./start.sh", "Script initial rules")
+	flagC := flag.String("clear", "false", "Clear rules")
 
 	flag.Parse()
 
-	// get TOR addresses.
-	TORaddresses := UpdateAddresses(*flagAddress)
+	fmt.Println("Updating...")
+	TORaddresses := UpdateFromTOR(*flagA)
 
-	if *flagClear != "true" {
+	if *flagC == "true" {
+		fmt.Println("Cleaning...")
+		ClearBlockTOR()
+	} else {
 		ClearAll()
-		InitialRules(*flagRules)
+		InitialRules(*flagR)
 
 		fmt.Println("Blocking...")
 
@@ -35,7 +35,5 @@ func main() {
 				BlockRequestFrom(addr)
 			}
 		}
-	} else {
-		ClearAllRules()
 	}
 }

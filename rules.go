@@ -10,25 +10,25 @@ func Exec(cmd string, args ...string) {
 	c.Run()
 }
 
-// InitRules load initials rules.
-func InitialRules(scriptPath string) {
-	Exec(scriptPath)
+// InitialRules load initials rules.
+func InitialRules(pathScript string) {
+	Exec(pathScript)
 }
 
-// ClearAllNAT clear all rules of nat iptables.
-func ClearAllNAT() {
+// ClearNAT clear all rules of nat iptables.
+func ClearNAT() {
 	Exec("iptables", "-t", "nat", "-F")
 }
 
-// ClearAllRules clear all rules of iptables.
-func ClearAllRules() {
+// ClearBlockTOR clear all rules of iptables.
+func ClearBlockTOR() {
 	Exec("iptables", "-F")
 }
 
 //ClearAll clear all rules.
 func ClearAll() {
-	ClearAllNAT()
-	ClearAllRules()
+	ClearNAT()
+	ClearBlockTOR()
 }
 
 // BlockRequestFrom block requests from address in a port 80 and 443.

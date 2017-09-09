@@ -6,18 +6,22 @@ import (
 	"strings"
 )
 
-// UpdateAddresses get all addresses from the past 16 hours.
-func UpdateAddresses(address string) []string {
-	res, errGet := http.Get("https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=" + address)
+// UpdateFromTOR get all addresses from the past 16 hours.
+func UpdateFromTOR(address string) []string {
+	url := "https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip="
+	res, errGet := http.Get(url + address)
 
 	if errGet != nil {
 		panic(errGet)
 	}
 
 	defer res.Body.Close()
+	body, errBody := ioutil.ReadAll(res.Body)
 
-	body, _ := ioutil.ReadAll(res.Body)
+	if errBody != nil {
+		panic(errBody)
+	}
+
 	result := strings.Split(string(body), "\n")
-
 	return result
 }
