@@ -7,7 +7,11 @@ import (
 // Exec execute the commands.
 func Exec(cmd string, args ...string) {
 	c := exec.Command(cmd, args...)
-	c.Run()
+	err := c.Run()
+
+	if err != nil {
+		panic(err)
+	}
 }
 
 // InitialRules load initials rules.
