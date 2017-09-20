@@ -1,13 +1,13 @@
 package main
 
 import (
-  "io/ioutil"
-  "net/http"
-  "strings"
-  "fmt"
-  "flag"
-  "runtime"
-  "os/exec"
+	"flag"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os/exec"
+	"runtime"
+	"strings"
 )
 
 // Exec execute the commands.
@@ -40,35 +40,35 @@ func UpdateFromTOR(address string) []string {
 	return result
 }
 
-func main(){
-  if runtime.GOOS != "linux" {
-    fmt.Println("Operating system not supported.")
-    return
-  }
+func main() {
+	if runtime.GOOS != "linux" {
+		fmt.Println("Operating system not supported.")
+		return
+	}
 
-  flagAddress := flag.String("address", "1.1.1.1", "IP Address to block TOR network")
+	flagAddress := flag.String("address", "1.1.1.1", "IP Address to block TOR network")
 	flagRules := flag.String("rules", "", "Custom script with initial rules")
 
 	flag.Parse()
 
-  fmt.Println("Updating...")
-  TORaddresses := UpdateFromTOR(*flagAddress)
+	fmt.Println("Updating...")
+	TORaddresses := UpdateFromTOR(*flagAddress)
 
-  fmt.Println("Cleaning...")
+	fmt.Println("Cleaning...")
 
-  Exec("iptables", "-F")
-  Exec("iptables", "-t", "nat", "-F")
+	Exec("iptables", "-F")
+	Exec("iptables", "-t", "nat", "-F")
 
-  fmt.Println("Initial rules...")
-  if *flagRules != ""{
-    Exec(*flagRules)
-  }
+	fmt.Println("Initial rules...")
+	if *flagRules != "" {
+		Exec(*flagRules)
+	}
 
-  fmt.Println("Blocking...")
+	fmt.Println("Blocking...")
 
-  for _, address := range TORaddresses {
-    if len(address) < 16 && len(address) > 7 {
-      Exec("iptables", "-A", "INPUT", "-s", address, "-j", "DROP")
-    }
-  }
+	for _, address := range TORaddresses {
+		if len(address) < 16 && len(address) > 7 {
+			Exec("iptables", "-A", "INPUT", "-s", address, "-j", "DROP")
+		}
+	}
 }
