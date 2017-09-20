@@ -1,6 +1,5 @@
 # Blocktor
-Simple application to block requests from TOR network, based from https://check.torproject.org/ and
-iptables rules.
+Simple application to block requests from TOR network, based from https://check.torproject.org/ and iptables rules.
 
 ## Compile
 
@@ -24,13 +23,6 @@ $ sudo ./blocktor -address xxx.xxx.xxx.xxx
 Load script with initials rules.
 
 ``` bash
-$ sudo ./blocktor -address xxx.xxx.xxx.xxx -initial-rules ./init.sh # default is ./start.sh
+$ sudo ./blocktor -address xxx.xxx.xxx.xxx -initial-rules ./init.sh # default is ./rules.sh
 
 ```
-
-Clear current rules.
-
-```bash
-$ sudo ./blocktor -clear true
-```
-
