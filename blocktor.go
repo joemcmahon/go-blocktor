@@ -10,13 +10,19 @@ import (
 	"strings"
 )
 
+var dryRun *bool
+
 // Exec execute the commands.
 func Exec(cmd string, args ...string) {
-	c := exec.Command(cmd, args...)
-	err := c.Run()
+	if *dryRun {
+		fmt.Println(cmd, args)
+	} else {
+		c := exec.Command(cmd, args...)
+		err := c.Run()
 
-	if err != nil {
-		panic(err)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
@@ -41,15 +47,16 @@ func UpdateFromTOR(address string) []string {
 }
 
 func main() {
-	if runtime.GOOS != "linux" {
+	flagAddress := flag.String("address", "1.1.1.1", "IP Address to block TOR network")
+	flagRules := flag.String("rules", "", "Custom script with initial rules")
+	dryRun = flag.Bool("dryrun", false, "print but don't block")
+
+	flag.Parse()
+
+	if runtime.GOOS != "linux" && !*dryRun {
 		fmt.Println("Operating system not supported.")
 		return
 	}
-
-	flagAddress := flag.String("address", "1.1.1.1", "IP Address to block TOR network")
-	flagRules := flag.String("rules", "", "Custom script with initial rules")
-
-	flag.Parse()
 
 	fmt.Println("Updating...")
 	TORaddresses := UpdateFromTOR(*flagAddress)
